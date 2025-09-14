@@ -95,10 +95,8 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Remover font-size e color daqui, pois agora são imagens */
     box-shadow: 0 0 15px var(--roxo-neon);
 }
-/* Estilo para as imagens dentro dos círculos */
 .icon-circle img {
     width: 60%; /* Ajusta o tamanho da imagem dentro do círculo */
     height: 60%;
@@ -111,31 +109,37 @@ p {
     color: var(--roxo-neon);
 }
 
-/* 3. Demonstração Visual (Carrossel) */
+/* 3. Demonstração Visual (Carrossel Automático) */
 .demo {
     background-color: var(--preto); /* Fundo preto sólido */
 }
-.carousel {
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Alinha verticalmente as imagens */
-    gap: 20px;
+.carousel-wrapper {
     margin-top: 30px;
-    overflow-x: auto; /* Permite rolagem horizontal se as imagens excederem */
-    scroll-snap-type: x mandatory; /* Para um carrossel mais "travado" */
-    -webkit-overflow-scrolling: touch; /* Melhor rolagem em iOS */
-    padding-bottom: 10px; /* Espaço para a barra de rolagem em alguns navegadores */
-}
-.carousel img {
-    flex-shrink: 0; /* Impede que as imagens encolham */
+    overflow: hidden; /* Esconde o excesso para o efeito de carrossel */
     width: 100%;
-    max-width: 250px; /* Tamanho fixo para as imagens */
-    height: auto;
-    object-fit: contain; /* Garante que a imagem inteira seja visível */
-    border: 3px solid var(--roxo-neon);
+    max-width: 800px; /* Limita a largura do carrossel */
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    border: 3px solid var(--roxo-neon); /* Borda iluminada */
     border-radius: 15px;
-    box-shadow: 0 0 20px rgba(166, 76, 255, 0.5);
-    scroll-snap-align: center; /* Centraliza a imagem na rolagem */
+    box-shadow: 0 0 25px rgba(166, 76, 255, 0.7); /* Brilho forte */
+    padding: 10px 0; /* Espaçamento interno da borda */
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.8s ease-in-out; /* Transição suave */
+    /* width será definido via JS para acomodar todas as imagens */
+}
+
+.carousel-track img {
+    flex-shrink: 0; /* Impede que as imagens encolham */
+    width: 250px; /* Largura fixa para cada imagem */
+    height: 400px; /* Altura fixa para as imagens do carrossel */
+    object-fit: cover; /* Cobre a área, pode cortar um pouco das bordas da imagem */
+    border-radius: 10px; /* Borda arredondada interna */
+    margin: 0 10px; /* Espaço entre as imagens */
 }
 
 /* 4. Oferta Especial */
@@ -226,17 +230,14 @@ footer {
     h1 {
         font-size: 2rem;
     }
-    /* Em telas menores, mostra apenas uma imagem por vez no carrossel */
-    .img-desktop-only {
-        display: none;
+    .carousel-wrapper {
+        max-width: 90%; /* Ajusta a largura em telas menores */
+        padding: 5px 0;
     }
-    .carousel {
-        justify-content: flex-start; /* Alinha à esquerda para rolagem */
-        padding: 0 20px; /* Adiciona padding para as bordas em mobile */
-    }
-    .carousel img {
-        max-width: 90%; /* Ajusta o tamanho da imagem em mobile */
-        margin-right: 15px; /* Espaço entre as imagens no carrossel mobile */
+    .carousel-track img {
+        width: 180px; /* Reduz o tamanho da imagem em mobile */
+        height: 280px;
+        margin: 0 5px; /* Menor espaçamento */
     }
     .price-offer {
         font-size: 2rem;
