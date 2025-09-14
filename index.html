@@ -56,11 +56,19 @@
         <div class="container">
             <h2>Veja um Pouco do Nosso Pack</h2>
             <p>Figurinhas para todos os nichos e momentos.</p>
-            <div class="carousel">
-                <img src="https://i.imgur.com/8BpUGAA.jpeg" alt="Preview das Figurinhas 1">
-                <img src="https://i.imgur.com/MxgScBQ.jpeg" alt="Preview das Figurinhas 2" class="img-desktop-only">
-                <img src="https://i.imgur.com/Z7rWuFW.jpeg" alt="Preview das Figurinhas 3" class="img-desktop-only">
+            <div class="carousel-wrapper">
+                <div class="carousel-track">
+                    <img src="https://i.imgur.com/8BpUGAA.jpeg" alt="Preview das Figurinhas 1">
+                    <img src="https://i.imgur.com/MxgScBQ.jpeg" alt="Preview das Figurinhas 2">
+                    <img src="https://i.imgur.com/Z7rWuFW.jpeg" alt="Preview das Figurinhas 3">
+                    <img src="https://i.imgur.com/u5QJd8b.jpeg" alt="Preview das Figurinhas 4">
+                    <img src="https://i.imgur.com/DXWiVSW.jpeg" alt="Preview das Figurinhas 5">
+                    <img src="https://i.imgur.com/Zoo8jQz.jpeg" alt="Preview das Figurinhas 6">
+                    <img src="https://i.imgur.com/8BpUGAA.jpeg" alt="Preview das Figurinhas 1 (duplicate)">
+                    <img src="https://i.imgur.com/MxgScBQ.jpeg" alt="Preview das Figurinhas 2 (duplicate)">
+                    <img src="https://i.imgur.com/Z7rWuFW.jpeg" alt="Preview das Figurinhas 3 (duplicate)">
                 </div>
+            </div>
         </div>
     </section>
     
@@ -115,6 +123,46 @@
     <footer>
         <p>Produto Digital - Acesso Imediato.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const carouselTrack = document.querySelector('.carousel-track');
+            const images = carouselTrack.querySelectorAll('img');
+            const imageWidth = images[0].offsetWidth + 20; // Largura da imagem + gap
+            let currentIndex = 0;
+            const totalImages = images.length - 3; // Total de imagens únicas para o loop
+
+            function startCarousel() {
+                setInterval(() => {
+                    currentIndex++;
+                    if (currentIndex >= totalImages) {
+                        carouselTrack.style.transition = 'none'; // Desativa transição para reset
+                        carouselTrack.style.transform = `translateX(0px)`;
+                        currentIndex = 0; // Reseta o índice
+                        // Força um reflow para garantir que a transição seja removida antes de aplicá-la novamente
+                        void carouselTrack.offsetWidth; 
+                        carouselTrack.style.transition = 'transform 0.8s ease-in-out';
+                    }
+                    carouselTrack.style.transform = `translateX(-${currentIndex * imageWidth}px)`;
+                }, 3000); // Muda a imagem a cada 3 segundos (3000ms)
+            }
+
+            // Garante que o carrossel inicie após as imagens serem carregadas
+            window.addEventListener('load', () => {
+                const updatedImageWidth = images[0].offsetWidth + 20;
+                // Atualiza o CSS para garantir que a largura do track seja calculada corretamente
+                carouselTrack.style.width = `${updatedImageWidth * images.length}px`;
+                startCarousel();
+            });
+
+            // Ajusta o carrossel se a tela for redimensionada
+            window.addEventListener('resize', () => {
+                const updatedImageWidth = images[0].offsetWidth + 20;
+                carouselTrack.style.width = `${updatedImageWidth * images.length}px`;
+                carouselTrack.style.transform = `translateX(-${currentIndex * updatedImageWidth}px)`;
+            });
+        });
+    </script>
 
 </body>
 </html>
