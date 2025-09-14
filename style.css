@@ -10,9 +10,10 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: var(--preto);
+    background-color: var(--preto); /* Fundo base preto para todo o body */
     color: var(--branco);
     text-align: center;
+    overflow-x: hidden; /* Evita scroll horizontal indesejado */
 }
 
 .container {
@@ -68,14 +69,13 @@ p {
 
 /* 1. Hero Section */
 .hero {
-    background: linear-gradient(180deg, rgba(16, 0, 31, 0.8), var(--preto)), url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2071&auto=format&fit=crop') no-repeat center center;
-    background-size: cover;
+    background-color: var(--preto); /* Fundo preto sólido */
     padding-top: 80px;
 }
 
 /* 2. Benefícios */
 .benefits {
-    background-color: var(--preto);
+    background-color: var(--preto); /* Fundo preto sólido */
 }
 .benefits .container {
     display: flex;
@@ -95,37 +95,52 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    color: var(--roxo-neon);
+    /* Remover font-size e color daqui, pois agora são imagens */
     box-shadow: 0 0 15px var(--roxo-neon);
 }
+/* Estilo para as imagens dentro dos círculos */
+.icon-circle img {
+    width: 60%; /* Ajusta o tamanho da imagem dentro do círculo */
+    height: 60%;
+    object-fit: contain; /* Garante que a imagem se ajuste sem cortar */
+    filter: drop-shadow(0 0 5px rgba(166, 76, 255, 0.7)); /* Adiciona um brilho sutil à imagem */
+}
+
 .benefit-card h3 {
     font-size: 1.3rem;
     color: var(--roxo-neon);
 }
 
-/* 3. Demonstração Visual */
+/* 3. Demonstração Visual (Carrossel) */
 .demo {
-    background-color: var(--cinza-escuro);
+    background-color: var(--preto); /* Fundo preto sólido */
 }
 .carousel {
     display: flex;
     justify-content: center;
+    align-items: center; /* Alinha verticalmente as imagens */
     gap: 20px;
     margin-top: 30px;
+    overflow-x: auto; /* Permite rolagem horizontal se as imagens excederem */
+    scroll-snap-type: x mandatory; /* Para um carrossel mais "travado" */
+    -webkit-overflow-scrolling: touch; /* Melhor rolagem em iOS */
+    padding-bottom: 10px; /* Espaço para a barra de rolagem em alguns navegadores */
 }
 .carousel img {
+    flex-shrink: 0; /* Impede que as imagens encolham */
     width: 100%;
-    max-width: 250px;
+    max-width: 250px; /* Tamanho fixo para as imagens */
     height: auto;
+    object-fit: contain; /* Garante que a imagem inteira seja visível */
     border: 3px solid var(--roxo-neon);
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(166, 76, 255, 0.5);
+    scroll-snap-align: center; /* Centraliza a imagem na rolagem */
 }
 
 /* 4. Oferta Especial */
 .offer {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), var(--preto);
+    background-color: var(--preto); /* Fundo preto sólido */
 }
 .price-offer {
     font-size: 2.8rem;
@@ -155,7 +170,7 @@ p {
     margin-top: 40px;
 }
 .testimonial-card {
-    background-color: var(--cinza-escuro);
+    background-color: var(--cinza-escuro); /* Mantém cinza escuro para contraste */
     padding: 25px;
     border-radius: 15px;
     border: 2px solid var(--roxo-neon);
@@ -174,7 +189,7 @@ p {
 
 /* 6. Garantia e Urgência */
 .guarantee {
-    background-color: var(--cinza-escuro);
+    background-color: var(--preto); /* Fundo preto sólido */
 }
 .guarantee-list {
     list-style: none;
@@ -197,7 +212,7 @@ p {
 
 /* 7. Chamada Final */
 .final-cta {
-    background: linear-gradient(45deg, rgba(166, 76, 255, 0.2), rgba(255, 77, 216, 0.2));
+    background-color: var(--preto); /* Fundo preto sólido */
 }
 
 footer {
@@ -211,14 +226,17 @@ footer {
     h1 {
         font-size: 2rem;
     }
-    .img-mobile-hidden {
+    /* Em telas menores, mostra apenas uma imagem por vez no carrossel */
+    .img-desktop-only {
         display: none;
     }
     .carousel {
-        justify-content: center;
+        justify-content: flex-start; /* Alinha à esquerda para rolagem */
+        padding: 0 20px; /* Adiciona padding para as bordas em mobile */
     }
     .carousel img {
-        max-width: 80%;
+        max-width: 90%; /* Ajusta o tamanho da imagem em mobile */
+        margin-right: 15px; /* Espaço entre as imagens no carrossel mobile */
     }
     .price-offer {
         font-size: 2rem;
