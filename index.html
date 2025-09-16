@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Figurinhas Criativas para Stories - Acesso Vitalício</title>
-    <meta name="description" content="Acesso vitalício a mais de 5.000 figurinhas criativas para Stories por um pagamento único. Aumente seu engajamento agora mesmo!">
+    <meta name="description" content="Acesso vitalício a mais de 7.000 figurinhas criativas para Stories por um pagamento único. Aumente seu engajamento agora mesmo!">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,12 +33,12 @@
         }
 
         body {
-            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%); /* Degradê rosa */
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             font-family: 'Roboto', sans-serif;
             color: var(--white);
             line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh; /* Garante que o degradê cubra a altura total */
+            min-height: 100vh;
         }
 
         /* --- CONTAINER E UTILITÁRIOS --- */
@@ -53,8 +53,14 @@
             font-family: 'Poppins', sans-serif;
             font-weight: 800;
             line-height: 1.2;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Sombra branca para destacar no fundo rosa */
-            color: var(--black); /* Títulos em preto para contraste no degradê */
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+            color: var(--black);
+        }
+
+        /* Títulos da seção Hero agora são brancos para contrastar com o vídeo */
+        .hero h1, .hero p {
+            color: var(--white);
+            text-shadow: 0 0 8px rgba(0,0,0,0.8);
         }
 
         h1 {
@@ -65,28 +71,26 @@
         h2 {
             font-size: 2.2rem;
             margin-bottom: 2rem;
-            color: var(--black); /* Títulos secundários em preto */
         }
         
         h3 {
-            color: var(--neon-pink); /* Mantém os h3 dos benefícios em neon-pink */
-            text-shadow: 0 0 3px var(--neon-pink); /* Adiciona o glow neon aos h3 */
+            color: var(--neon-pink);
+            text-shadow: 0 0 3px var(--neon-pink);
         }
-
 
         p {
             font-size: 1.1rem;
             max-width: 700px;
             margin: 0 auto 1.5rem auto;
-            color: var(--black); /* Parágrafos em preto para contraste */
-            text-shadow: 0 0 1px rgba(255, 255, 255, 0.5); /* Pequena sombra para legibilidade */
+            color: var(--black);
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
         }
 
         /* --- BOTÃO DE AÇÃO (CTA) --- */
         .cta-button {
             display: inline-block;
-            background-color: var(--black); /* Botão em preto para se destacar no rosa */
-            color: var(--neon-pink); /* Texto do botão em rosa neon */
+            background-color: var(--black);
+            color: var(--neon-pink);
             font-family: 'Poppins', sans-serif;
             font-size: 1.2rem;
             font-weight: 700;
@@ -100,7 +104,7 @@
         }
 
         .cta-button:hover {
-            background-color: var(--neon-pink); /* Inverte as cores no hover */
+            background-color: var(--neon-pink);
             color: var(--black);
             transform: scale(1.05);
             animation: none;
@@ -112,13 +116,48 @@
             100% { transform: scale(1); }
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION COM VÍDEO DE FUNDO --- */
         .hero {
-            min-height: 90vh;
+            min-height: 100vh; /* Ocupa a tela inteira */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative; /* Essencial para o posicionamento do vídeo */
+            overflow: hidden; /* Esconde as partes do vídeo que excedem o container */
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 56.25vw; /* Proporção 16:9 */
+            min-width: 177.77vh; /* Proporção 16:9 */
+            min-height: 100vh;
+            transform: translate(-50%, -50%);
+            z-index: 1; /* Fica atrás do conteúdo */
+            pointer-events: none; /* Impede cliques no vídeo */
+        }
+        
+        /* Overlay escuro para garantir a legibilidade do texto sobre o vídeo */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Ajuste a opacidade (último valor) conforme necessário */
+            z-index: 2;
+        }
+
+        /* Garante que o conteúdo do Hero fique na frente do vídeo e do overlay */
+        .hero > * {
+            position: relative;
+            z-index: 3;
         }
 
         .hero p {
@@ -135,8 +174,8 @@
 
         .support-elements span {
             font-weight: 700;
-            background: rgba(0, 0, 0, 0.3); /* Fundo mais escuro para destaque */
-            color: var(--white); /* Texto branco */
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--white);
             padding: 8px 15px;
             border-radius: 10px;
             border-left: 3px solid var(--neon-pink);
@@ -144,14 +183,14 @@
 
         /* --- PROVA SOCIAL E GALERIA --- */
         .social-proof {
-            background: rgba(0,0,0,0.3); /* Fundo escuro para destacar o carrossel no degradê */
-            border-top: 1px solid rgba(255, 255, 255, 0.2); /* Borda branca sutil */
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Borda branca sutil */
-            padding-bottom: 60px; /* Mais espaço para o carrossel */
+            background: rgba(0,0,0,0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 60px;
         }
         
         .social-proof p {
-            color: var(--white); /* Parágrafo dentro do bloco escuro em branco */
+            color: var(--white);
             text-shadow: none;
         }
 
@@ -163,7 +202,7 @@
             font-weight: 700;
             margin-bottom: 3rem;
             flex-wrap: wrap;
-            color: var(--white); /* Itens da prova social em branco */
+            color: var(--white);
         }
         
         /* --- ESTILOS DO CARROSSEL --- */
@@ -173,14 +212,13 @@
             margin: 0 auto;
             overflow: hidden;
             position: relative;
-            /* Efeito de fade nas laterais usando o fundo da seção (preto) */
             -webkit-mask-image: linear-gradient(to right, transparent, var(--black) 10%, var(--black) 90%, transparent);
             mask-image: linear-gradient(to right, transparent, var(--black) 10%, var(--black) 90%, transparent);
         }
 
         .carousel-track {
             display: flex;
-            width: calc((160px + 20px) * 12); 
+            width: calc((160px + 20px) * 12);  
             animation: scroll 30s linear infinite;
         }
 
@@ -199,12 +237,11 @@
             object-fit: cover;
             margin: 0 10px;
             border-radius: 10px;
-            border: 2px solid var(--neon-purple); /* Borda Roxo Neon */
-            box-shadow: 0 0 8px var(--neon-purple), 0 0 15px var(--neon-purple); /* Sombra Roxo Neon */
-            background: var(--black); /* Fundo preto para as imagens */
+            border: 2px solid var(--neon-purple);
+            box-shadow: 0 0 8px var(--neon-purple), 0 0 15px var(--neon-purple);
+            background: var(--black);
         }
-        /* --- FIM DOS ESTILOS DO CARROSSEL --- */
-
+        
         /* --- SEÇÃO DE BENEFÍCIOS --- */
         .benefits-grid {
             display: grid;
@@ -216,12 +253,12 @@
         }
 
         .benefit-item {
-            background: rgba(0, 0, 0, 0.3); /* Fundo escuro para os itens de benefício */
-            color: var(--white); /* Texto branco */
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--white);
             padding: 20px;
             border-radius: 10px;
             border-left: 4px solid var(--neon-pink);
-            text-shadow: none; /* Remove a sombra do texto padrão do body */
+            text-shadow: none;
         }
 
         .benefit-item h3 {
@@ -230,55 +267,63 @@
         }
         
         .benefit-item p {
-            color: var(--white); /* Parágrafos internos em branco */
+            color: var(--white);
         }
 
         /* --- OFERTA E URGÊNCIA --- */
         .offer {
-            background: rgba(0,0,0,0.3); /* Fundo escuro para destaque */
+            background: rgba(0,0,0,0.3);
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
         .offer h2, .offer p {
-            color: var(--white); /* Texto em branco */
+            color: var(--white);
             text-shadow: none;
         }
 
         /* --- FOOTER --- */
         .footer {
-            border-top: none; /* Removi a borda para ficar mais limpo com o degradê */
+            border-top: none;
             padding: 30px 20px;
             text-align: center;
             font-size: 0.9rem;
-            color: var(--black); /* Texto do footer em preto */
+            color: var(--black);
             text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
         }
 
         .footer p {
-            color: var(--black); /* Garante que o texto do parágrafo no footer seja preto */
+            color: var(--black);
         }
 
         /* --- RESPONSIVIDADE --- */
         @media (min-width: 768px) {
             h1 { font-size: 4rem; }
             h2 { font-size: 2.8rem; }
-            .benefits-grid { grid-template-columns: 1fr 1fr 1fr; } /* 3 colunas para mais itens */
+            .benefits-grid { grid-template-columns: 1fr 1fr 1fr; }
         }
 
         @media (max-width: 480px) {
             h1 { font-size: 2.2rem; }
             h2 { font-size: 1.8rem; }
-            .container { padding: 40px 15px; }
             .cta-button { font-size: 1rem; padding: 12px 30px; }
             .proof-items { flex-direction: column; gap: 15px; }
-            .benefits-grid { grid-template-columns: 1fr; } /* Volta para 1 coluna em mobile */
+            .benefits-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <header class="hero container">
-        <h1>Dê vida aos seus Stories com +5.000 Figurinhas Criativas</h1>
+    <header class="hero">
+        <div class="video-background">
+            <iframe 
+                src="https://www.youtube.com/embed/zjaaMlO706A?autoplay=1&mute=1&loop=1&playlist=zjaaMlO706A&controls=0&showinfo=0&rel=0&iv_load_policy=3" 
+                frameborder="0" 
+                allow="autoplay; encrypted-media" 
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <h1>Dê vida aos seus Stories com +7.000 Figurinhas Criativas</h1>
         <p>Acesso vitalício e imediato ao pack exclusivo no Telegram por um pagamento único de R$ 10,00!</p>
         <a href="https://www.ggcheckout.com/checkout/v2/Z3VzGlDvIPiJP30xwlyb" class="cta-button">
             QUERO MEU PACK AGORA – R$ 10,00
@@ -296,7 +341,7 @@
                 <h2>Junte-se a uma Comunidade Criativa</h2>
                 <div class="proof-items">
                     <span>✅ +1.000 Membros Satisfeitos</span>
-                    <span>📂 +5.000 Figurinhas Exclusivas</span>
+                    <span>📂 +7.000 Figurinhas Exclusivas</span>
                 </div>
                 <p>Veja algumas das figurinhas incríveis que você vai receber:</p>
 
@@ -308,7 +353,6 @@
                         <img src="https://i.imgur.com/u5QJd8b.jpeg" alt="Exemplo de figurinha criativa">
                         <img src="https://i.imgur.com/DXWiVSW.jpeg" alt="Exemplo de figurinha criativa">
                         <img src="https://i.imgur.com/Zoo8jQz.jpeg" alt="Exemplo de figurinha criativa">
-
                         <img src="https://i.imgur.com/8BpUGAA.jpeg" alt="Exemplo de figurinha criativa">
                         <img src="https://i.imgur.com/MxgScBQ.jpeg" alt="Exemplo de figurinha criativa">
                         <img src="https://i.imgur.com/Z7rWuFW.jpeg" alt="Exemplo de figurinha criativa">
@@ -365,7 +409,7 @@
     </main>
 
     <footer class="footer">
-        <p>© 2025 Figurinhas Criativas. Todos os direitos reservados.</p>
+        <p>© 2023 Figurinhas Criativas. Todos os direitos reservados.</p>
     </footer>
 
 </body>
