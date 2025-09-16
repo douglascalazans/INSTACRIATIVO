@@ -14,12 +14,12 @@
         /* --- RESET E CONFIGURAÇÕES GERAIS --- */
         :root {
             --neon-pink: #ff00a0;
-            --neon-purple: #9d00ff; /* Cor Roxo Neon para o carrossel */
+            --neon-purple: #9d00ff;
             --black: #0d0d0d;
             --white: #ffffff;
             --glow-shadow-pink: 0 0 5px var(--neon-pink), 0 0 15px var(--neon-pink), 0 0 25px var(--neon-pink);
-            --gradient-start: #ff007f; /* Um rosa mais vibrante */
-            --gradient-end: #ffa0ff; /* Um rosa mais claro e suave */
+            --gradient-start: #ff007f;
+            --gradient-end: #ffa0ff;
         }
 
         * {
@@ -41,7 +41,6 @@
             min-height: 100vh;
         }
 
-        /* --- CONTAINER E UTILITÁRIOS --- */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -53,15 +52,63 @@
             font-family: 'Poppins', sans-serif;
             font-weight: 800;
             line-height: 1.2;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-            color: var(--black);
         }
 
-        /* Títulos da seção Hero agora são brancos para contrastar com o vídeo */
+        /* --- HERO SECTION COM VÍDEO DE FUNDO (CÓDIGO CORRIGIDO) --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
         .hero h1, .hero p {
             color: var(--white);
-            text-shadow: 0 0 8px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8); /* Sombra para legibilidade */
         }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Camada 1: Fundo */
+            pointer-events: none;
+        }
+
+        .video-background iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 56.25vw; /* Proporção 16:9 */
+            min-width: 177.77vh; /* Garante que cubra a altura */
+            min-height: 100vh;  /* Garante que cubra a largura */
+            transform: translate(-50%, -50%);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Overlay escuro */
+            z-index: 2; /* Camada 2: Overlay */
+        }
+
+        .hero > * {
+            position: relative;
+            z-index: 3; /* Camada 3: Conteúdo */
+        }
+        /* --- FIM DA CORREÇÃO --- */
 
         h1 {
             font-size: 2.8rem;
@@ -71,6 +118,8 @@
         h2 {
             font-size: 2.2rem;
             margin-bottom: 2rem;
+            color: var(--black);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
         }
         
         h3 {
@@ -83,10 +132,13 @@
             max-width: 700px;
             margin: 0 auto 1.5rem auto;
             color: var(--black);
-            text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--white);
         }
 
-        /* --- BOTÃO DE AÇÃO (CTA) --- */
         .cta-button {
             display: inline-block;
             background-color: var(--black);
@@ -115,55 +167,7 @@
             50% { transform: scale(1.03); }
             100% { transform: scale(1); }
         }
-
-        /* --- HERO SECTION COM VÍDEO DE FUNDO --- */
-        .hero {
-            min-height: 100vh; /* Ocupa a tela inteira */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative; /* Essencial para o posicionamento do vídeo */
-            overflow: hidden; /* Esconde as partes do vídeo que excedem o container */
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .video-background {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100vw;
-            height: 56.25vw; /* Proporção 16:9 */
-            min-width: 177.77vh; /* Proporção 16:9 */
-            min-height: 100vh;
-            transform: translate(-50%, -50%);
-            z-index: 1; /* Fica atrás do conteúdo */
-            pointer-events: none; /* Impede cliques no vídeo */
-        }
         
-        /* Overlay escuro para garantir a legibilidade do texto sobre o vídeo */
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Ajuste a opacidade (último valor) conforme necessário */
-            z-index: 2;
-        }
-
-        /* Garante que o conteúdo do Hero fique na frente do vídeo e do overlay */
-        .hero > * {
-            position: relative;
-            z-index: 3;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-        }
-
         .support-elements {
             display: flex;
             justify-content: center;
@@ -174,14 +178,13 @@
 
         .support-elements span {
             font-weight: 700;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             color: var(--white);
             padding: 8px 15px;
             border-radius: 10px;
             border-left: 3px solid var(--neon-pink);
         }
 
-        /* --- PROVA SOCIAL E GALERIA --- */
         .social-proof {
             background: rgba(0,0,0,0.3);
             border-top: 1px solid rgba(255, 255, 255, 0.2);
@@ -205,7 +208,6 @@
             color: var(--white);
         }
         
-        /* --- ESTILOS DO CARROSSEL --- */
         .carousel-container {
             width: 100%;
             max-width: 90vw;
@@ -242,7 +244,6 @@
             background: var(--black);
         }
         
-        /* --- SEÇÃO DE BENEFÍCIOS --- */
         .benefits-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -270,32 +271,28 @@
             color: var(--white);
         }
 
-        /* --- OFERTA E URGÊNCIA --- */
         .offer {
             background: rgba(0,0,0,0.3);
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
+
         .offer h2, .offer p {
             color: var(--white);
             text-shadow: none;
         }
 
-        /* --- FOOTER --- */
         .footer {
-            border-top: none;
             padding: 30px 20px;
             text-align: center;
             font-size: 0.9rem;
             color: var(--black);
-            text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
         }
 
         .footer p {
             color: var(--black);
         }
 
-        /* --- RESPONSIVIDADE --- */
         @media (min-width: 768px) {
             h1 { font-size: 4rem; }
             h2 { font-size: 2.8rem; }
@@ -323,7 +320,7 @@
             </iframe>
         </div>
 
-        <h1>Deixe seus Stories ainda mais perfeitos com +7.000 Figurinhas Criativas</h1>
+        <h1>Deixe seus Stories mais perfeitos com +7.000 Figurinhas Criativas</h1>
         <p>Acesso vitalício e imediato ao pack exclusivo no Telegram por um pagamento único de R$ 10,00!</p>
         <a href="https://www.ggcheckout.com/checkout/v2/Z3VzGlDvIPiJP30xwlyb" class="cta-button">
             QUERO MEU PACK AGORA – R$ 10,00
@@ -344,7 +341,6 @@
                     <span>📂 +7.000 Figurinhas Exclusivas</span>
                 </div>
                 <p>Veja algumas das figurinhas incríveis que você vai receber:</p>
-
                 <div class="carousel-container">
                     <div class="carousel-track">
                         <img src="https://i.imgur.com/8BpUGAA.jpeg" alt="Exemplo de figurinha criativa">
@@ -405,13 +401,11 @@
                 </a>
             </div>
         </section>
-
     </main>
 
     <footer class="footer">
-        <p>© 2023 Figurinhas Criativas. Todos os direitos reservados.</p>
+        <p>© 2025 Figurinhas Criativas. Todos os direitos reservados.</p>
     </footer>
 
 </body>
 </html>
-
